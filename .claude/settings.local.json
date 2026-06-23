@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install --registry=https://registry.npmmirror.com)",
+      "Bash(node server.js)",
+      "Bash(curl:*)",
+      "Bash(findstr /C:\"欢迎来到日星小站\")",
+      "Bash(findstr:*)",
+      "Bash(dir \"C:\\Users\\36346\\Desktop\\日星小站\\routes\" /b)",
+      "Bash(dir:*)",
+      "Bash(taskkill:*)",
+      "Bash(netstat:*)",
+      "Bash(git init)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

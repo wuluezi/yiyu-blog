@@ -1,0 +1,31 @@
+<%- include('partials/header', { title: '搜索: ' + query, query: query }) %>
+
+<div class="search-header">
+  <h2>搜索结果</h2>
+  <p class="search-info">搜索 "<strong><%= query %></strong>"，找到 <strong><%= total %></strong> 篇文章</p>
+</div>
+
+<% if (results.length === 0) { %>
+  <div class="empty-state">
+    <p>没有找到相关文章，试试其他关键词。</p>
+    <a href="/" class="btn btn-primary">返回首页</a>
+  </div>
+<% } else { %>
+
+<div class="post-list">
+  <% results.forEach(function(post) { %>
+  <article class="post-card">
+    <h2><a href="/post/<%= post.id %>"><%= post.title %></a></h2>
+    <div class="post-meta">
+      <time><%= post.updated_at %></time>
+    </div>
+    <div class="post-content markdown-body">
+      <%- post.contentHtml %>
+    </div>
+  </article>
+  <% }) %>
+</div>
+
+<% } %>
+
+<%- include('partials/footer') %>

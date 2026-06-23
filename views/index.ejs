@@ -1,0 +1,60 @@
+<%- include('partials/header', { title: '首页' }) %>
+
+<div class="hero">
+  <h1>日星小站</h1>
+  <p class="subtitle">日星的网盘链接小站，链接有效期为3个月，注意及时转存</p>
+</div>
+
+<% if (posts.length === 0) { %>
+  <div class="empty-state">
+    <p>还没有文章，去看看管理后台发布第一篇吧。</p>
+  </div>
+<% } else { %>
+
+<div class="post-list">
+  <% posts.forEach(function(post) { %>
+  <article class="post-card">
+    <h2><a href="/post/<%= post.id %>"><%= post.title %></a></h2>
+    <div class="post-meta">
+      <time><%= post.updated_at %></time>
+    </div>
+    <div class="post-content markdown-body">
+      <%- post.contentHtml %>
+    </div>
+  </article>
+  <% }) %>
+</div>
+
+<% if (totalPages > 1) { %>
+<div class="pagination">
+  <% if (page > 1) { %>
+    <a href="/?page=<%= page - 1 %>">&laquo; 上一页</a>
+  <% } %>
+  <span>第 <%= page %> / <%= totalPages %> 页</span>
+  <% if (page < totalPages) { %>
+    <a href="/?page=<%= page + 1 %>">下一页 &raquo;</a>
+  <% } %>
+  <form class="page-jump" method="GET" action="/" onsubmit="return jumpPage(<%= totalPages %>)">
+    <span>跳至</span>
+    <input type="number" name="page" class="page-input" min="1" max="<%= totalPages %>" placeholder="">
+    <button type="submit" class="page-btn">GO</button>
+  </form>
+</div>
+
+<script>
+function jumpPage(total) {
+  var input = document.querySelector('.page-input');
+  var p = parseInt(input.value);
+  if (isNaN(p) || p < 1 || p > total) {
+    input.value = '';
+    input.placeholder = '1-' + total;
+    return false;
+  }
+  return true;
+}
+</script>
+<% } %>
+
+<% } %>
+
+<%- include('partials/footer') %>

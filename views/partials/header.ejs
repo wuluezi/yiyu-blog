@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' - ' : '' %>日星小站</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">日星小站</a>
+      <div class="header-actions">
+        <form class="search-form" method="GET" action="/search">
+          <input type="text" name="q" class="search-input" placeholder="搜索文章..." value="<%= typeof query !== 'undefined' ? query : '' %>">
+          <button type="submit" class="search-btn">搜索</button>
+        </form>
+        <nav class="nav">
+          <a href="/">首页</a>
+          <% if (typeof user !== 'undefined' && user) { %>
+            <a href="/admin">管理</a>
+            <a href="/admin/logout">登出</a>
+          <% } else { %>
+            <a href="/admin/login">管理</a>
+          <% } %>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="main container">

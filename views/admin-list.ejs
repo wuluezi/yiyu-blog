@@ -1,0 +1,57 @@
+<%- include('partials/header', { title: '文章管理' }) %>
+
+<div class="admin-header">
+  <h2>文章管理</h2>
+  <div class="admin-actions">
+    <a href="/admin/new" class="btn btn-primary">写新文章</a>
+    <a href="/admin/password" class="btn btn-outline">账号设置</a>
+  </div>
+</div>
+
+<% if (posts.length === 0) { %>
+<div class="empty-state">
+  <p>还没有文章，点击"写新文章"开始创作吧。</p>
+</div>
+<% } else { %>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>标题</th>
+      <th>发布时间</th>
+      <th>更新时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% posts.forEach(function(post) { %>
+    <tr>
+      <td><a href="/post/<%= post.id %>" target="_blank"><%= post.title %></a></td>
+      <td><%= post.created_at %></td>
+      <td><%= post.updated_at %></td>
+      <td class="actions-cell">
+        <a href="/admin/edit/<%= post.id %>" class="btn btn-sm">编辑</a>
+        <form method="POST" action="/admin/delete/<%= post.id %>" style="display:inline" onsubmit="return confirm('确定要删除这篇文章吗？')">
+          <button type="submit" class="btn btn-sm btn-danger">删除</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<% if (totalPages > 1) { %>
+<div class="pagination">
+  <% if (page > 1) { %>
+    <a href="/admin?page=<%= page - 1 %>">&laquo; 上一页</a>
+  <% } %>
+  <span>第 <%= page %> / <%= totalPages %> 页</span>
+  <% if (page < totalPages) { %>
+    <a href="/admin?page=<%= page + 1 %>">下一页 &raquo;</a>
+  <% } %>
+</div>
+<% } %>
+
+<% } %>
+
+<%- include('partials/footer') %>

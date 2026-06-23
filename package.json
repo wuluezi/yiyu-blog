@@ -1,0 +1,17 @@
+{
+  "name": "rixing-blog",
+  "version": "1.0.0",
+  "description": "日星小站 - 个人博客",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "sql.js": "^1.10.0",
+    "express-session": "^1.18.0",
+    "ejs": "^3.1.10",
+    "marked": "^14.0.0"
+  }
+}

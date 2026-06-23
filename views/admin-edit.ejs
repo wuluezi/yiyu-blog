@@ -1,0 +1,27 @@
+<%- include('partials/header', { title: typeof post !== 'undefined' && post ? '编辑文章' : '写新文章' }) %>
+
+<% var isEdit = typeof post !== 'undefined' && post; %>
+<h2><%= isEdit ? '编辑文章' : '写新文章' %></h2>
+
+<% if (typeof error !== 'undefined' && error) { %>
+<div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<form method="POST" action="<%= isEdit ? '/admin/update/' + post.id : '/admin/save' %>" class="edit-form">
+  <div class="form-group">
+    <label for="title">标题</label>
+    <input type="text" id="title" name="title" value="<%= isEdit ? post.title : '' %>" required autofocus>
+  </div>
+
+  <div class="form-group">
+    <label for="content">内容（支持 Markdown 格式）</label>
+    <textarea id="content" name="content" rows="20" placeholder="开始写作...&#10;&#10;## 支持 Markdown 语法&#10;&#10;- 标题: # ## ###&#10;- 粗体: **文本**&#10;- 列表: - 项目&#10;- 链接: [文字](url)&#10;- 代码: &#96;代码&#96;"><%= isEdit ? (post.content || '') : '' %></textarea>
+  </div>
+
+  <div class="form-buttons">
+    <button type="submit" class="btn btn-primary"><%= isEdit ? '更新文章' : '发布文章' %></button>
+    <a href="/admin" class="btn btn-outline">取消</a>
+  </div>
+</form>
+
+<%- include('partials/footer') %>
