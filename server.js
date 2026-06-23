@@ -1,11 +1,13 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const fs = require('fs');
 const { initDB } = require('./database');
 const indexRoutes = require('./routes/index');
 const adminRoutes = require('./routes/admin');
 
 const app = express();
+const DATA_DIR = process.env.DATA_DIR || __dirname;
 const PORT = process.env.PORT || 3000;
 
 // 中间件
@@ -20,6 +22,17 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24小时
 }));
+
+// 临时：数据库导入接口（上传完成后删除此路由）
+app.post('/import-db', express.raw({ type: 'application/octet-stream', limit: '50mb' }), (req, res) => {
+  const token = req.query.token;
+  if (token !== 'rixing-import-2024') {
+    return res.status(403).send('Forbidden');
+  }
+  const dbPath = path.join(DATA_DIR, 'blog.db');
+  fs.writeFileSync(dbPath, req.body);
+  res.send(`OK: ${req.body.length} bytes written to ${dbPath}`);
+});
 
 // 路由
 app.use('/', indexRoutes);
