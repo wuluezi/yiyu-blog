@@ -53,6 +53,9 @@ async function initDB() {
 
 // 保存数据库到文件
 function saveDB() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
   const data = db.export();
   const buffer = Buffer.from(data);
   fs.writeFileSync(DB_PATH, buffer);
