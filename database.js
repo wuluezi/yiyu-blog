@@ -39,15 +39,16 @@ async function initDB() {
     )
   `);
 
-  // 创建默认管理员账号
-  const result = db.exec('SELECT id FROM users WHERE username = \'日星\'');
-  if (!result.length || !result[0].values.length) {
-    const salt = crypto.randomBytes(16).toString('hex');
-    const hash = crypto.pbkdf2Sync('rixing2024', salt, 10000, 64, 'sha512').toString('hex');
-    db.run('INSERT INTO users (username, password) VALUES (?, ?)', ['日星', salt + ':' + hash]);
-    console.log('默认站长账号已创建: 日星 / rixing2024');
-  }
-
+const result = db.exec("SELECT id FROM users WHERE username = 'yiyu'");
+if (!result.length || !result[0].values.length) {
+  const salt = crypto.randomBytes(16).toString('hex');
+  const hash = crypto.pbkdf2Sync('20020817', salt, 10000, 64, 'sha512').toString('hex');
+  db.run(
+    'INSERT INTO users (username, password) VALUES (?, ?)',
+    ['yiyu', salt + ':' + hash]
+  );
+  console.log('Default admin account created: yiyu / 20020817');
+}
   saveDB();
 }
 
