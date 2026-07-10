@@ -1,7 +1,7 @@
 {
   "name": "rixing-blog",
   "version": "1.0.0",
-  "description": "日星小站 - 个人博客",
+  "description": "倚玉小站 - 个人博客",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
