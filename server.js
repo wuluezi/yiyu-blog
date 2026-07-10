@@ -47,6 +47,6 @@ app.use((req, res) => {
 (async () => {
   await initDB();
   app.listen(PORT, () => {
-    console.log(`日星小站已启动: http://localhost:${PORT}`);
+    console.log(`倚玉小站已启动: http://localhost:${PORT}`);
   });
 })();
